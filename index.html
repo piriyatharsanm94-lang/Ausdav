@@ -6,22 +6,30 @@
   <title>AUSDAV</title>
   <link rel="icon" href="login_page/ausdav.png">
   <link rel="stylesheet" href="style_login.css">
+  <style>
+    /* Simple loading style */
+    button.loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
   <div class="login-container">
     <div class="login-box">
-      <img src="/login_page/ausdav.png" alt="Logo" class="logo">
+      <img src="login_page/ausdav.png" alt="Logo" class="logo">
       
       <form id="cashForm">
         <input type="text" id="details" name="details" placeholder="Details" required>
         <input type="number" id="cash" name="cash" placeholder="Cash" required> 
-        <button type="submit">Submit</button>
+        <button type="submit" id="submitBtn">Submit</button>
       </form>
     </div>
   </div>
 
   <script>
     const form = document.getElementById("cashForm");
+    const submitBtn = document.getElementById("submitBtn");
 
     form.addEventListener("submit", function(e) {
       e.preventDefault();
@@ -29,21 +37,43 @@
       const details = document.getElementById("details").value;
       const cash = document.getElementById("cash").value;
 
+      // Show loading state
+      submitBtn.textContent = "Submitting...";
+      submitBtn.classList.add("loading");
+
       fetch("https://script.google.com/macros/s/AKfycby400a3Fpmh8ALb1vCR21WNYKhhSKjTkathjgrh21_DZeoDn-3loxjPErBM93DFNp9P/exec", {
         method: "POST",
-        mode: "no-cors",  // important for Google Apps Script
+        mode: "no-cors",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({details,cash })
+        body: JSON.stringify({ details, cash })
       })
       .then(() => {
-        alert("✅ Data submitted successfully!");
+        // Success state
+        submitBtn.textContent = "Submitted ✅";
+        submitBtn.classList.remove("loading");
         form.reset();
+
+        // Reset button back to original after 2s
+        setTimeout(() => {
+          submitBtn.textContent = "Submit";
+        }, 2000);
       })
-      .catch(err => alert("❌ Error: " + err));
+      .catch(err => {
+        // Error state
+        submitBtn.textContent = "Error ❌";
+        submitBtn.classList.remove("loading");
+        console.error(err);
+
+        setTimeout(() => {
+          submitBtn.textContent = "Submit";
+        }, 2000);
+      });
     });
   </script>
 </body>
 </html>
+
+
 
 
 
