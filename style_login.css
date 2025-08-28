@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background: url("img/login_page/download.jpg") no-repeat center center fixed;
+  background: url("login_page/download.jpg") no-repeat center center fixed;
   background-size: cover;
 }
 
@@ -79,3 +79,4 @@ body {
   font-size: 13px;
   color: #555;
 }
+
