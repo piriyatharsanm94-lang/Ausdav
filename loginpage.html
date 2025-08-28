@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AUSDAV</title>
+  <link rel="icon" href="img/login_page/ausdav.png">
+  <link rel="stylesheet" href="style_login.css">
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-box">
+      <img src="img/login_page/ausdav.png" alt="Logo" class="logo">
+      
+      <form id="cashForm">
+        <input type="text" id="details" name="details" placeholder="Details" required>
+        <input type="number" id="cash" name="cash" placeholder="Cash" required> 
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("cashForm");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const details = document.getElementById("details").value;
+      const cash = document.getElementById("cash").value;
+
+      fetch("https://script.google.com/macros/s/AKfycby400a3Fpmh8ALb1vCR21WNYKhhSKjTkathjgrh21_DZeoDn-3loxjPErBM93DFNp9P/exec", {
+        method: "POST",
+        mode: "no-cors",  // important for Google Apps Script
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({details,cash })
+      })
+      .then(() => {
+        alert("✅ Data submitted successfully!");
+        form.reset();
+      })
+      .catch(err => alert("❌ Error: " + err));
+    });
+  </script>
+</body>
+</html>
+
+
