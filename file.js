@@ -4,7 +4,7 @@ const statusText = document.getElementById("status");
 const uploadBtn = document.getElementById("uploadBtn");
 
 // 👉 Replace with your Google Apps Script Web App URL
-const UPLOAD_URL = "YOUR_WEB_APP_URL_HERE";
+const UPLOAD_URL = "https://drive.google.com/drive/folders/1w4qVpRgTTxNiaHrKCBs5u-WFHLZ7ylXe?usp=sharing";
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -49,3 +49,4 @@ form.addEventListener("submit", async (e) => {
 
   reader.readAsDataURL(file);
 });
+
