@@ -1,0 +1,97 @@
+/* Background */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #0013B7, #00C6FF);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container */
+.upload-container {
+  width: 100%;
+  max-width: 420px;
+  padding: 20px;
+}
+
+/* Upload card */
+.upload-box {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Icon */
+.upload-icon {
+  width: 60px;
+  height: 60px;
+  color: #0013B7;
+  margin-bottom: 15px;
+}
+
+/* Heading */
+.upload-box h2 {
+  margin: 10px 0 5px;
+  font-size: 24px;
+  color: #333;
+}
+
+.upload-box p {
+  margin: 5px 0 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* File input label */
+.file-label {
+  display: inline-block;
+  padding: 12px 20px;
+  background: #0013B7;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  margin-bottom: 15px;
+  transition: 0.3s;
+}
+
+.file-label:hover {
+  background: #001099;
+}
+
+/* Upload button */
+button {
+  width: 100%;
+  padding: 12px;
+  background: #00C6FF;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #009ed9;
+}
+
+/* Status */
+#status {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #333;
+  min-height: 20px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
