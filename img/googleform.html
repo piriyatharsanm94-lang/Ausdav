@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Form</title>
+  <link rel="stylesheet" href="googleform.css">
+</head>
+<body>
+  <div class="wrapper">
+    <div class="form-card">
+      <img src="https://icons.iconarchive.com/icons/custom-icon-design/pretty-office-8/128/Notepad-icon.png" alt="Logo" class="form-logo">
+      <form id="form">
+        <!-- Project dropdown -->
+        <select name="option" id="option" required>
+          <option value="" disabled selected>Select Project</option>
+          <option value="Option A">Option A</option>
+          <option value="Option B">Option B</option>
+          <option value="Option C">Option C</option>
+        </select>
+
+        <!-- Details input -->
+        <input type="text" id="details" name="details" placeholder="Details" required>
+
+        <!-- Cash input -->
+        <input type="number" id="cash" name="cash" placeholder="Cash" min="0" required>
+
+        <button type="submit" id="submitBtn">Submit</button>
+
+        <!-- Status messages -->
+        <div id="progress" class="msg progress" hidden>Submitting…</div>
+        <div id="success" class="msg success" hidden>✅ Response recorded</div>
+        <div id="failure" class="msg failure" hidden>❌ Submission failed</div>
+      </form>
+    </div>
+  </div>
+  <script src="google.js"></script>
+</body>
+</html>

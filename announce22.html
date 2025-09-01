@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>📢 Announcements</title>
+  <link rel="stylesheet" href="announce.css">
+</head>
+<body>
+  <div class="container">
+    <h2>📢 Announcements</h2>
+
+    <!-- Home Button -->
+    <div class="home-btn">
+      <a href="interface2022.html" class="btn-home">🏠 Home</a>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:45%">Announcement</th>
+          <th>Sender</th>
+        </tr>
+      </thead>
+      <tbody id="announcements"></tbody>
+    </table>
+  </div>
+
+  <!-- Modal for body message -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span id="close">&times;</span>
+      <iframe id="bodyFrame"></iframe>
+    </div>
+  </div>
+
+  <script src="announc.js"></script>
+</body>
+</html>

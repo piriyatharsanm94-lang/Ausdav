@@ -1,11 +1,42 @@
+// ====== Elements ======
 const form = document.getElementById("uploadForm");
 const fileInput = document.getElementById("fileInput");
 const statusText = document.getElementById("status");
 const uploadBtn = document.getElementById("uploadBtn");
+const previewBox = document.getElementById("preview");
+const previewImg = document.getElementById("previewImg");
+const previewText = document.getElementById("previewText");
+const renameInput = document.getElementById("renameInput");
 
-// 👉 Replace with your Google Apps Script Web App URL
-const UPLOAD_URL = "https://drive.google.com/drive/folders/1w4qVpRgTTxNiaHrKCBs5u-WFHLZ7ylXe?usp=sharing";
+// Replace with your Google Apps Script Web App URL
+const UPLOAD_URL = "https://script.google.com/macros/s/AKfycbyCHSY361iiD3GCE4erLgocXyd2oSYz-iex07SJNWV5P-35QJsECybrzG7YlVsRYi2Ggw/exec";
 
+
+
+// ====== File Preview ======
+fileInput.addEventListener("change", () => {
+  const file = fileInput.files[0];
+  if (file) {
+    previewBox.style.display = "block";
+    previewText.textContent = "Selected: " + file.name;
+    renameInput.value = "";
+
+    if (file.type.startsWith("image/")) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        previewImg.src = e.target.result;
+        previewImg.style.display = "block";
+      };
+      reader.readAsDataURL(file);
+    } else {
+      previewImg.style.display = "none";
+    }
+  } else {
+    previewBox.style.display = "none";
+  }
+});
+
+// ====== Upload Handler ======
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -14,6 +45,8 @@ form.addEventListener("submit", async (e) => {
     statusText.textContent = "⚠️ Please select a file first.";
     return;
   }
+
+  let filename = renameInput.value.trim() || file.name;
 
   uploadBtn.textContent = "Uploading...";
   uploadBtn.disabled = true;
@@ -28,13 +61,20 @@ form.addEventListener("submit", async (e) => {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams({
           file: base64Data,
-          filename: file.name
+          filename: filename
         })
       });
 
       const result = await response.json();
       if (result.status === "success") {
-        statusText.innerHTML = `✅ Uploaded: <a href="${result.fileUrl}" target="_blank">View File</a>`;
+        statusText.textContent = `✅ Uploaded successfully as "${filename}"`;
+
+        setTimeout(() => {
+          form.reset();
+          previewBox.style.display = "none";
+          statusText.textContent = "";
+        }, 2000);
+
       } else {
         statusText.textContent = "❌ Error: " + result.message;
       }
@@ -49,4 +89,24 @@ form.addEventListener("submit", async (e) => {
 
   reader.readAsDataURL(file);
 });
+
+// ====== Auto Logout After Inactivity (7 min) ======
+let logoutTimer;
+
+function resetLogoutTimer() {
+  clearTimeout(logoutTimer);
+  logoutTimer = setTimeout(() => {
+    alert("⚠️ Session expired. You will be logged out.");
+    localStorage.removeItem("isLoggedIn");
+    window.location.href = "login.html";
+  }, 7 * 60 * 1000); // 7 minutes
+}
+
+// Track user activity
+["click", "mousemove", "keypress", "scroll", "touchstart"].forEach(event => {
+  document.addEventListener(event, resetLogoutTimer);
+});
+
+// Start timer on page load
+resetLogoutTimer();
 

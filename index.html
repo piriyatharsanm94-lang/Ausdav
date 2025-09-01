@@ -4,80 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AUSDAV</title>
-  <link rel="icon" href="login_page/ausdav.png">
-  <link rel="stylesheet" href="style_login.css">
-  <style>
-    /* Simple loading style */
-    button.loading {
-      opacity: 0.7;
-      pointer-events: none;
-    }
-  </style>
+  <link rel="stylesheet" href="login.css">
+  <link rel="icon" href="img/icon.jpg">
 </head>
 <body>
   <div class="login-container">
     <div class="login-box">
-      <img src="login_page/logo.png" alt="Logo" class="logo">
-      
-      <form id="cashForm">
-        <input type="text" id="details" name="details" placeholder="Details" required>
-        <input type="number" id="cash" name="cash" placeholder="Cash" required> 
-        <button type="submit" id="submitBtn">Submit</button>
-        <a href="file.html">File</a>
+      <h2>Login</h2>
+      <form id="loginForm">
+        <input type="text" id="username" placeholder="Username" required>
+
+        <!-- Password with eye toggle -->
+        <div class="password-container">
+          <input type="password" id="password" placeholder="Password" required>
+          <span id="togglePassword" class="eye-icon">👁️</span>
+        </div>
+
+        <button type="submit">Login</button>
+        <a href="password.html" class="forgot-btn">Forgot Password?</a>
       </form>
+      <p id="loginStatus"></p>
     </div>
   </div>
 
+  <script src="logintem.js"></script>
   <script>
-    const form = document.getElementById("cashForm");
-    const submitBtn = document.getElementById("submitBtn");
+    // Show/Hide password toggle
+    const passwordInput = document.getElementById("password");
+    const togglePassword = document.getElementById("togglePassword");
 
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
+    togglePassword.addEventListener("click", () => {
+      const type = passwordInput.type === "password" ? "text" : "password";
+      passwordInput.type = type;
 
-      const details = document.getElementById("details").value;
-      const cash = document.getElementById("cash").value;
-
-      // Show loading state
-      submitBtn.textContent = "Submitting...";
-      submitBtn.classList.add("loading");
-
-      fetch("https://script.google.com/macros/s/AKfycby400a3Fpmh8ALb1vCR21WNYKhhSKjTkathjgrh21_DZeoDn-3loxjPErBM93DFNp9P/exec", {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ details, cash })
-      })
-      .then(() => {
-        // Success state
-        submitBtn.textContent = "Submitted ✅";
-        submitBtn.classList.remove("loading");
-        form.reset();
-
-        // Reset button back to original after 2s
-        setTimeout(() => {
-          submitBtn.textContent = "Submit";
-        }, 2000);
-      })
-      .catch(err => {
-        // Error state
-        submitBtn.textContent = "Error ❌";
-        submitBtn.classList.remove("loading");
-        console.error(err);
-
-        setTimeout(() => {
-          submitBtn.textContent = "Submit";
-        }, 2000);
-      });
+      // Change icon
+      togglePassword.textContent = type === "password" ? "👁️" : "🙈";
     });
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
 

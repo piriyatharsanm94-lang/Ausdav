@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Feedback</title>
+  <link rel="stylesheet" href="feedback.css"> <!-- CSS linked here -->
+  <style>
+    button:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+  </style>
+  <script src="https://unpkg.com/lucide@latest"></script> <!-- icons -->
+</head>
+<body>
+  <div class="container">
+    <!-- Header with Home button -->
+    <div class="header-bar">
+      <h2>Feedback</h2>
+      <a href="userinterface.html" class="home-btn">
+        <i data-lucide="home"></i> Home
+      </a>
+    </div>
+
+    <!-- Feedback form -->
+    <form id="feedbackForm">
+      <textarea id="message" placeholder="Write your feedback..." required></textarea><br>
+      <button type="submit" id="submitBtn">Send</button>
+    </form>
+    <p id="response"></p>
+  </div>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzdh4mwesV1EFrKmOj5m6cGnfvBTTEmGrKz4vL9eY8BaJRv_M-vz5h1wKNg_C99gAVNBw/exec"; 
+
+    const form = document.getElementById("feedbackForm");
+    const messageField = document.getElementById("message");
+    const responseText = document.getElementById("response");
+    const submitBtn = document.getElementById("submitBtn");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Disable button and show processing state
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Processing...";
+
+      try {
+        const msg = messageField.value.trim();
+        if (!msg) {
+          responseText.innerText = "⚠️ Please enter feedback before sending.";
+          submitBtn.disabled = false;
+          submitBtn.innerText = "Send";
+          return;
+        }
+
+        const res = await fetch(scriptURL, {
+          method: "POST",
+          body: new URLSearchParams({ "feedback": msg })
+        });
+
+        if (res.ok) {
+          responseText.innerText = "✅ Feedback sent successfully!";
+          messageField.value = ""; // clear form
+        } else {
+          responseText.innerText = "❌ Error sending feedback. Try again.";
+        }
+      } catch (err) {
+        responseText.innerText = "❌ Network error. Please try again.";
+      }
+
+      // Reset button state
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Send";
+    });
+
+    lucide.createIcons(); // activate icons
+  </script>
+</body>
+</html>

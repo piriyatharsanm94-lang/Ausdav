@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #7b61ff, #6a5acd);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.form-card {
+  background: #fff;
+  padding: 30px 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  width: 320px;
+  text-align: center;
+}
+
+.form-logo {
+  width: 60px;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+select, input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+}
+
+select:focus, input:focus {
+  border-color: #7b61ff;
+  box-shadow: 0 0 4px rgba(123, 97, 255, 0.4);
+}
+
+button {
+  background: #7b61ff;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #6a5acd;
+}
+
+.msg {
+  margin-top: 10px;
+  font-size: 14px;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.progress { background: #e0e7ff; color: #3730a3; }
+.success { background: #d1fae5; color: #065f46; }
+.failure { background: #fee2e2; color: #991b1b; }

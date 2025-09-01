@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membership Details</title>
+  <link rel="stylesheet" href="members.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>Membership Details</h1>
+      <!--<a href="logout.html" class="logout-btn">Logout</a>-->
+    </div>
+
+    <!-- Year: 2022 -->
+    <button class="accordion">2022</button>
+    <div class="panel">
+      <button class="accordion">Sharlini</button>
+      <div class="panel">
+        <div class="id-card">
+            <img src="img/sharlini.jpg" alt="Sharlini">
+            <div class="info">
+                <h3>Sharlini</h3>
+                <p><strong>Batch:</strong> 2022</p>
+                <p><strong>Job:</strong> Software Engineer</p>
+            </div>
+        </div>
+
+      </div>
+
+      <button class="accordion">Thisoraj</button>
+      <div class="panel">
+        <div class="id-card">
+          <img src="thisoraj.jpg" alt="Thisoraj">
+          <h3>Thisoraj</h3>
+          <p><strong>Batch:</strong> 2022</p>
+          <p><strong>Job:</strong> Data Analyst</p>
+        </div>
+      </div>
+
+      <button class="accordion">Vithuvarsan</button>
+      <div class="panel">
+        <div class="id-card">
+          <img src="vithuvarsan.jpg" alt="Vithuvarsan">
+          <h3>Vithuvarsan</h3>
+          <p><strong>Batch:</strong> 2022</p>
+          <p><strong>Job:</strong> Network Engineer</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Year: 2023 -->
+    <button class="accordion">2023</button>
+    <div class="panel">
+      <button class="accordion">Member A</button>
+      <div class="panel">
+        <div class="id-card">
+          <img src="membera.jpg" alt="Member A">
+          <h3>Member A</h3>
+          <p><strong>Batch:</strong> 2023</p>
+          <p><strong>Job:</strong> Web Developer</p>
+        </div>
+      </div>
+
+      <button class="accordion">Member B</button>
+      <div class="panel">
+        <div class="id-card">
+          <img src="memberb.jpg" alt="Member B">
+          <h3>Member B</h3>
+          <p><strong>Batch:</strong> 2023</p>
+          <p><strong>Job:</strong> Graphic Designer</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Year: 2024 -->
+    <button class="accordion">2024</button>
+    <div class="panel">
+      <p>Members for 2024 will go here…</p>
+    </div>
+  </div>
+
+  <!-- Accordion Script -->
+  <script>
+    const acc = document.querySelectorAll(".accordion");
+    acc.forEach(button => {
+      button.addEventListener("click", () => {
+        button.classList.toggle("active");
+        const panel = button.nextElementSibling;
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
+    });
+  </script>
+</body>
+</html>

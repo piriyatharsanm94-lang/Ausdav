@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Project / Records</title>
+  <link rel="stylesheet" href="feedback.css"> 
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f7fa;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 25px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    .header-bar h2 {
+      font-size: 1.8rem;
+      color: #222;
+    }
+    .home-btn {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    .home-btn:hover { background-color: #45a049; }
+    form input {
+      width: 100%;
+      padding: 10px;
+      margin: 12px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+    button:hover:not(:disabled) {
+      background-color: #0056b3;
+    }
+    #response {
+      margin-top: 15px;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="header-bar">
+      <h2>Add Project Record</h2>
+      <a href="interface2022.html" class="home-btn"><i data-lucide="home"></i> Home</a>
+    </div>
+
+    <form id="projectForm">
+      <input type="text" id="projectName" placeholder="Project Name" required>
+      <input type="text" id="excelName" placeholder="Excel Sheet Name" required>
+      <input type="url" id="excelLink" placeholder="Excel Sheet Link" required>
+      <input type="text" id="billName" placeholder="Bill Book Name" required>
+      <input type="url" id="billLink" placeholder="Bill PDF Link" required>
+      <button type="submit" id="submitBtn">Submit</button>
+    </form>
+
+    <p id="response"></p>
+  </div>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzoUacuccSsMWMpKhrQ1miRYTh-c-WK5mOnRhzinfkwrO6Nc7P1vshpP380trM_0BW7ew/exec"; // Replace with your deployed Apps Script
+
+    const form = document.getElementById("projectForm");
+    const responseText = document.getElementById("response");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const submitBtn = document.getElementById("submitBtn");
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Processing...";
+
+      const projectName = document.getElementById("projectName").value.trim();
+      const excelName = document.getElementById("excelName").value.trim();
+      const excelLink = document.getElementById("excelLink").value.trim();
+      const billName = document.getElementById("billName").value.trim();
+      const billLink = document.getElementById("billLink").value.trim();
+
+      if(!projectName || !excelName || !excelLink || !billName || !billLink){
+        responseText.innerText = "⚠️ Please fill all fields.";
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Submit";
+        return;
+      }
+
+      try {
+        const res = await fetch(scriptURL, {
+          method: "POST",
+          body: new URLSearchParams({
+            "projectName": projectName,
+            "excelName": excelName,
+            "excelLink": excelLink,
+            "billName": billName,
+            "billLink": billLink
+          })
+        });
+
+        if(res.ok){
+          responseText.innerText = "✅ Record added successfully!";
+          form.reset();
+        } else {
+          responseText.innerText = "❌ Error adding record. Try again.";
+        }
+      } catch(err){
+        console.error(err);
+        responseText.innerText = "❌ Network error. Please try again.";
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Submit";
+    });
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>

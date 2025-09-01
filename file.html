@@ -5,18 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Upload File</title>
   <link rel="stylesheet" href="file.css">
+  <link rel="icon" href="img/icon.jpg">
   <script src="https://unpkg.com/lucide@latest"></script> <!-- icons -->
 </head>
 <body>
   <div class="upload-container">
+    <!-- Header -->
+    <div class="header-bar">
+      <h2>Upload to Drive</h2>
+
+      <!-- Home Button -->
+      <a href="userinterface.html" class="home-btn">
+        <i data-lucide="home"></i> Home
+      </a>
+    </div>
+
+    <!-- Upload Card -->
     <div class="upload-box">
       <i data-lucide="upload-cloud" class="upload-icon"></i>
-      <h2>Upload to Drive</h2>
       <p>Select a file to save in Google Drive</p>
 
       <form id="uploadForm">
         <input type="file" id="fileInput" required hidden>
         <label for="fileInput" class="file-label">Choose File</label>
+
+        <div id="preview" class="preview-box" style="display:none;">
+          <img id="previewImg" alt="Preview" style="max-width:100px; display:none;">
+          <p id="previewText"></p>
+          <input type="text" id="renameInput" placeholder="Enter new name (optional)">
+        </div>
+
         <button type="submit" id="uploadBtn">Upload</button>
       </form>
 

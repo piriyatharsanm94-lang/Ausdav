@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="front2024.css">
+  <script src="https://kit.fontawesome.com/yourfontawesomeid.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo.png" alt="Logo">
+    </div>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Dashboard</a></li>
+      <li><a href="#">Announcements</a></li>
+    </ul>
+
+    <!-- Notification Bell -->
+    <div class="notification">
+      <i class="fas fa-bell"></i>
+      <span class="badge">3</span>
+    </div>
+  </nav>
+
+  <!-- Main Dashboard -->
+  <div class="dashboard">
+    <h1>Dashboard</h1>
+    <div class="card-container">
+      <h2>Recently accessed courses</h2>
+
+      <div class="cards">
+        <!-- Example Normal Course Cards -->
+        <div class="card">
+          <span class="tag">Eng-MATH</span>
+          <div class="card-body gray">
+            <p>In23-S3-MA2014 - Differential Equations</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <span class="tag">Eng-MECH</span>
+          <div class="card-body lightgray">
+            <p>In23-S3-ME1823 - Fundamentals of Engineering Thermodynamics</p>
+          </div>
+        </div>
+
+        <!-- Accounts File Upload Card -->
+        <div class="card" onclick="toggleUpload()">
+          <span class="tag">Accounts</span>
+          <div class="card-body purple">
+            <p>Accounts File Upload</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hidden iframe Section -->
+      <div id="uploadSection" class="hidden">
+        <h3>Accounts File Upload</h3>
+        <iframe src="temporary_note.html" class="iframe-box"></iframe>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function toggleUpload() {
+      const section = document.getElementById("uploadSection");
+      section.classList.toggle("hidden");
+    }
+  </script>
+
+</body>
+</html>  
