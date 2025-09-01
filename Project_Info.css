@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f4f7fa;
+  background: linear-gradient(135deg, #8db8e3 0%, #ffffff 100%);
   color: #333;
   line-height: 1.6;
   min-height: 100vh;
@@ -47,7 +47,7 @@ body {
 }
 
 .home-btn {
-  background-color: #4CAF50;
+  background-color: #09bce8;
   color: white;
 }
 
@@ -200,3 +200,4 @@ body {
     font-size: 1.5rem;
   }
 }
+

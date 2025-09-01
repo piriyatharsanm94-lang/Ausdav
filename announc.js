@@ -11,7 +11,7 @@ async function fetchAnnouncements() {
     let html = "";
     data.forEach((row, index) => {
       const isViewed = viewedAnnouncements.includes(row.announcement);
-      const star = isViewed ? "" : "⭐";
+      const star = isViewed ? "" : "★";
 
       html += `<tr onclick="openModal('${row.body}', '${row.announcement}')">
                  <td>${row.announcement} ${star}</td>

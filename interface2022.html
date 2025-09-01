@@ -5,107 +5,90 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Committee Batch</title>
   <link rel="stylesheet" href="userinterface.css">
-  <link rel="icon" href="img/icon.jpg">
+  <link rel="icon" href="img/icon2.png">
   <script src="https://kit.fontawesome.com/yourfontawesomeid.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar">
-    <div class="logo">
-        <img src="img/icon.jpg" alt="Logo">
-    </div>
+        <div class="logo">
+            <img src="img/icon2.png" alt="Logo">
+        </div>
 
-    <ul class="nav-links">
-        <li><a href="announce22.html">Announcements</a></li>
-        <li><a href="#" class="active">Dashboard</a></li>
-    </ul>
+        <ul class="nav-links">
+            <li><a href="announce22.html">Announcements</a></li>
+            <li><a href="#" class="active">Dashboard</a></li>
+        </ul>
 
-    <!-- Notification Bell -->
-    <div class="notification">
-        <i class="fas fa-bell"></i>
-<<<<<<< HEAD
-        
-=======
-        <span class="badge" id="notifBadge"></span>
->>>>>>> 31267f75f17c03fbe8a4aa5615a2ace968a6baab
-    </div>
+        <!-- Notification Bell -->
+        <div class="notification">
+            <i class="fas fa-bell"></i>
+           
+        </div>
 
-    <!-- Logout Button -->
-    <a href="index.html" class="logout-btn">Logout</a>
+        <!-- Logout Button -->
+        <a href="index.html" class="logout-btn">Logout</a>
     </nav>
 
+    <!-- Main Dashboard -->
+    <div class="dashboard">
+        <h1>Dashboard</h1>
+        <div class="card-container">
+            <div class="cards">
 
+                <!-- Accounts Card -->
+                <div class="card" onclick="location.href='Project_info.html'">
+                    <span class="tag">Accounts Details</span>
+                    <div class="card-body blue">
+                        <p>Tap to view project accounts details</p>
+                    </div>
+                </div>
 
-  <!-- Main Dashboard -->
-  <div class="dashboard">
-    <h1>Dashboard</h1>
-    <div class="card-container">
+                <!-- Feedback Card -->
+                <div class="card" onclick="location.href='feedback22.html'">
+                    <span class="tag">Give Feedback</span>
+                    <div class="card-body green">
+                        <p>Tap to give feedback (must be kept private)</p>
+                    </div>
+                </div>
 
-      <div class="cards">
+                <!-- Admin: Announcement -->
+                <div id="adminCard" class="card admin-only Announcement-card" onclick="window.location.href='admin_announce.html'">
+                    <span class="tag">Announcement for Members</span>
+                    <div class="card-body red">
+                        <p>➕ Tap to give announcement for members</p>
+                    </div>
+                </div>
 
-        <!-- Documentary Card -->
-        <div class="card" onclick="location.href='Project_info.html'">
-          <span class="tag">Accounts details</span>
-          <div class="card-body blue">
-            <p>Tap to view project accounts details</p>
-          </div>
-        </div>
+                <!-- Admin: Unfinished Accounts -->
+                <div id="adminCard2" class="card admin-only accounts-card" onclick="window.location.href='https://docs.google.com/spreadsheets/d/12-AhAxG8zFll96kuF9QRJzIeLgt1u2Qb68JrYiTGHD0/edit?usp=sharing'">
+                    <span class="tag">Unfinished Accounts</span>
+                    <div class="card-body red">
+                        <p>Tap to view the unfinished accounts</p>
+                    </div>
+                </div>
 
-        <!-- Feedback Card -->
-        <div class="card" onclick="location.href='feedback22.html'">
-          <span class="tag"> Give Feedback</span>
-          <div class="card-body green">
-            <p>Tap to give feedback (must be kept private)</p>
-          </div>
-        </div>
+                <!-- Admin: Feedbacks -->
+                <div id="adminCard3" class="card admin-only feedback-card" onclick="window.location.href='https://docs.google.com/spreadsheets/d/1kECmlENwamN0d_BYYyUgwLAWwsEPUKILyV39psxyX1Q/edit?usp=sharing'">
+                    <span class="tag">Feedbacks</span>
+                    <div class="card-body red">
+                        <p>Tap to view the feedback from members</p>
+                    </div>
+                </div>
 
-        <!-- Add Announcement Card (hidden by default, only for admins) -->
-        <div id="adminCard" class="card admin-only Announcement-card" onclick="window.location.href='admin_announce.html'">
-          <span class="tag">Announcement for Members</span>
-          <div class="card-body red">
-              <p>➕ Tap to give announcement for members</p>            
-          </div>
-        </div>
-<<<<<<< HEAD
-        <div id="adminCard2" class="card admin-only accounts-card" onclick="window.location.href='https://docs.google.com/spreadsheets/d/12-AhAxG8zFll96kuF9QRJzIeLgt1u2Qb68JrYiTGHD0/edit?usp=drive_link'">
-          <span class="tag">Unfinished Accounts</span>
-          <div class="card-body red">
-              <p>Tap to view the unfinished accounts</p>            
-          </div>
-        </div>
-        <div id="adminCard3" class="card admin-only feedback-card" onclick="window.location.href='https://docs.google.com/spreadsheets/d/1kECmlENwamN0d_BYYyUgwLAWwsEPUKILyV39psxyX1Q/edit?usp=sharing'">
-          <span class="tag"> View Feedbacks</span>
-          <div class="card-body red">
-              <p>Tap to view the feedback from members</p>            
-          </div>
-=======
-        <div id="adminCard2" class="card admin-only" onclick="window.location.href='https://docs.google.com/spreadsheets/d/12-AhAxG8zFll96kuF9QRJzIeLgt1u2Qb68JrYiTGHD0/edit?usp=sharing'">
-            <span class="tag">Temporary accounts note</span>
-            <div class="card-body red" style="background-color: rgb(5, 72, 72);">
-                <p>Not Finised Accounts</p>            
+                <!-- Admin: Project Updates -->
+                <div id="adminCard4" class="card admin-only ProjectUpdate-card" onclick="window.location.href='Project_Update.html'">
+                    <span class="tag">Update Project Accounts</span>
+                    <div class="card-body red">
+                        <p>Tap to update the account details for our batch</p>
+                    </div>
+                </div>
+
             </div>
         </div>
-            <div id="adminCard3" class="card admin-only" onclick="window.location.href='https://docs.google.com/spreadsheets/d/1kECmlENwamN0d_BYYyUgwLAWwsEPUKILyV39psxyX1Q/edit?usp=sharing'">
-            <span class="tag">Feedbacks</span>
-            <div class="card-body red" style="background-color: rgb(128, 145, 145);">
-                <p>Feedbacks</p>            
-            </div>
->>>>>>> 31267f75f17c03fbe8a4aa5615a2ace968a6baab
-        </div>
-
-        <div id="adminCard4" class="card admin-only ProjectUpdate-card" onclick="window.location.href='Project_Update.html'">
-          <span class="tag">Updates Project Accounts</span>
-          <div class="card-body red">
-              <p>Tap to update the account details for our batch</p>            
-          </div>
-        </div>
-
-        
-
-      </div>
     </div>
-  </div>
 
-  <script src="interface2022.js"></script>
+    <script src="interface2022.js"></script>
 </body>
 </html>
+

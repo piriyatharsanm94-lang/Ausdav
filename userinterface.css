@@ -7,7 +7,7 @@
 }
 
 body {
-  background-color: #f8f9fc;
+  background-color: #bfcdd1;
   color: #333;
 }
 
@@ -54,16 +54,29 @@ body {
   cursor: pointer;
 }
 .card.feedback-card {
-  background-color: rgb(128, 145, 145);
+  background: linear-gradient(135deg, #606c88, #3f4c6b);
+  color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
 .card.accounts-card {
-  background-color: rgba(203, 200, 24, 0.615);
+  background: linear-gradient(135deg, #11998e, #38ef7d);
+  color: white;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
 .card.Announcement-card {
-  background-color: rgba(18, 149, 231, 0.323);
+  background: linear-gradient(135deg, #f7971e, #ffd200);
+  color: #333;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  
 }
 .card.ProjectUpdate-card {
-  background-color: rgba(60, 230, 122, 0.777);
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
+  color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
 
 
@@ -155,11 +168,17 @@ body {
 
 /* Colors */
 .blue {
-  background: linear-gradient(135deg, #6c63ff, #3d3dd1);
+   background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
 
 .green {
-  background: linear-gradient(135deg, #00c851, #007e33);
+  background: linear-gradient(135deg, #6a11cb, #2575fc); 
+  color: white;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
 
 .orange {
@@ -220,4 +239,43 @@ body {
 
 .logout-btn:hover {
   background-color: #ef7171; /* darker red on hover */
+}
+/* Card container */
+.card {
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Tag styling */
+.card .tag {
+  display: block;
+  background: #0014a8;
+  color: #fff;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 0 0 12px 0;
+  font-size: 0.9rem;
+}
+
+/* Card body with centered text */
+.card-body {
+  display: flex;
+  align-items: center;     /* vertical center */
+  justify-content: center; /* horizontal center */
+  text-align: center;
+  min-height: 150px;       /* set height for balance */
+  padding: 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 0 0 15px 15px;
 }
