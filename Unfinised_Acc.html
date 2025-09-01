@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AUSDAV</title>
+  <link rel="icon" href="img/project-removebg-preview.png">
+  <link rel="stylesheet" href="css/temporary.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Reset & Base */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+    }
+
+    /* Container */
+    .login-container {
+      width: 100%;
+      max-width: 420px;
+      padding: 25px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+      text-align: center;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    /* Header */
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .header-bar h2 { font-size: 24px; color: #333; }
+
+    .home-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      background: #007bff;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .home-btn:hover {
+      background: #0056b3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+    }
+
+    .home-btn i { width: 18px; height: 18px; }
+
+    /* Logo */
+    .logo { width: 80px; margin: 0 auto 20px; display: block; }
+
+    /* Form */
+    form { display: flex; flex-direction: column; gap: 15px; }
+
+    input[type="text"], input[type="number"], select {
+      padding: 12px 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    input:focus, select:focus { border-color: #667eea; box-shadow: 0 0 5px rgba(102,126,234,0.5); }
+
+    button {
+      padding: 12px;
+      background: #667eea;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover { background: #556cd6; transform: translateY(-2px); }
+
+    /* Dropdown arrow */
+    select {
+      cursor: pointer;
+      background: #fff url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='35,50 70,85 105,50' fill='none' stroke='%23667eea' stroke-width='15' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 10px center;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .login-container { margin: 15px; padding: 20px; }
+      input, select, button { font-size: 14px; padding: 10px; }
+      .header-bar h2 { font-size: 20px; }
+    }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="header-bar">
+      <h2>AUSDAV</h2>
+      <a href="dashboard.html" class="home-btn">
+        <i data-lucide="home"></i> Home
+      </a>
+    </div>
+
+    <img src="img/notepad1.png" alt="Logo" class="logo">
+
+    <form id="cashForm">
+      <select id="project" name="project" required>
+        <option value="" disabled selected>Select Project</option>
+        <option value="monthly exam">Monthly Exam</option>
+        <option value="pilot exam">Pilot Exam</option>
+        <option value="chess">Chess</option>
+        <option value="kalvikaram">Kalvikaram</option>
+      </select>
+
+      <input type="text" id="details" name="details" placeholder="Details" required>
+      <input type="number" id="cash" name="cash" placeholder="Cash" required>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("cashForm");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const project = document.getElementById("project").value;
+      const details = document.getElementById("details").value;
+      const cash = document.getElementById("cash").value;
+
+      fetch("https://script.google.com/macros/s/AKfycby400a3Fpmh8ALb1vCR21WNYKhhSKjTkathjgrh21_DZeoDn-3loxjPErBM93DFNp9P/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ project, details, cash })
+      })
+      .then(() => { alert("✅ Data submitted successfully!"); form.reset(); })
+      .catch(err => alert("❌ Error: " + err));
+    });
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>

@@ -3,18 +3,34 @@ const sheetURL = "https://script.google.com/macros/s/AKfycbx6nATAR1y58Z6SPtpbzrO
 // Load viewed announcements from localStorage
 let viewedAnnouncements = JSON.parse(localStorage.getItem("viewedAnnouncements")) || [];
 
+// Get batch year from localStorage
+const batchYear = Number(localStorage.getItem("batchYear")) || 2024;
+
+// Home button redirect
+document.getElementById("homeBtn").onclick = () => {
+  if (batchYear === 2022) window.location.href = "interface2022.html";
+  else if (batchYear === 2024) window.location.href = "userinterface.html";
+  else window.location.href = "temporary_note.html";
+};
+
 async function fetchAnnouncements() {
   try {
     const res = await fetch(sheetURL);
     const data = await res.json();
 
     let html = "";
-    data.forEach((row, index) => {
+    data.forEach(row => {
       const isViewed = viewedAnnouncements.includes(row.announcement);
       const star = isViewed ? "" : "★";
 
+      let annText = row.announcement;
+      // Highlight links if present
+      if (row.body && row.body.includes("http")) {
+        annText = `<span class="announcement-link">${row.announcement}</span>`;
+      }
+
       html += `<tr onclick="openModal('${row.body}', '${row.announcement}')">
-                 <td>${row.announcement} ${star}</td>
+                 <td>${annText} ${star}</td>
                  <td>${row.sender}</td>
                </tr>`;
     });
@@ -51,6 +67,6 @@ window.onclick = function (event) {
   }
 };
 
+// Initial fetch + refresh every 5 seconds
 fetchAnnouncements();
 setInterval(fetchAnnouncements, 5000);
-

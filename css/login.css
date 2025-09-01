@@ -120,6 +120,59 @@ body {
   color: red;
 }
 
+/* Subtitle under heading */
+.subtitle {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-primary {
+  background: #4a90e2;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #357abd;
+}
+
+.btn-secondary {
+  background: #f1f1f1;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background: #ddd;
+}
+
+/* Success message */
+.success-msg {
+  font-size: 16px;
+  color: green;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+/* Status message */
+.status-msg {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #d9534f;
+  text-align: center;
+}
+
 /* Animations */
 @keyframes fadeIn {
   from {

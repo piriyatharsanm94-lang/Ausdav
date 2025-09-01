@@ -1,9 +1,6 @@
-// logintem.js
-
 const loginForm = document.getElementById("loginForm");
 const loginStatus = document.getElementById("loginStatus");
 
-// Replace with your deployed Apps Script Web App URL
 const scriptURL = "https://script.google.com/macros/s/AKfycbx6Utko9J858o0em00Zb0c5MjXBTJdXoGII24JpJmn_UBrEyr3XZ9xxnsIBJb4WIuLrOQ/exec";
 
 loginForm.addEventListener("submit", async (e) => {
@@ -29,25 +26,20 @@ loginForm.addEventListener("submit", async (e) => {
     console.log("Server response:", data);
 
     if (data.status === "success") {
-      // Get batch year from server and convert to number
-      const batchYear = data.batchYear ? data.batchYear : "0";
-      const batchYearNumber = Number(batchYear); // "2022" → 2022
+      const batchYearNumber = Number(data.batchYear || "0");
 
-      loginStatus.textContent = `✅ Login successful! Welcome, ${data.username}`;
+      loginStatus.textContent = `✅ Welcome, ${data.username}`;
       loginStatus.style.color = "green";
 
-      // Store login info locally
+      // Save login info
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("username", data.username);
       localStorage.setItem("batchYear", batchYearNumber);
 
-      // Redirect based on numeric batch year
+      // Redirect
       setTimeout(() => {
-        if (batchYearNumber === 2022) window.location.href = "interface2022.html";
-        else if (batchYearNumber === 2012) window.location.href = "interface2022.html";
-        else if (batchYearNumber === 2024) window.location.href = "userinterface.html";
-        else window.location.href = "temporary_note.html";
-      }, 1500);
+        window.location.href = "dashboard.html";
+      }, 1200);
 
     } else {
       loginStatus.textContent = "❌ Invalid username or password!";
@@ -62,8 +54,7 @@ loginForm.addEventListener("submit", async (e) => {
   }
 });
 
-
-// 👁️ Show/Hide password toggle
+// 👁️ Password toggle
 const passwordInput = document.getElementById("password");
 const togglePassword = document.getElementById("togglePassword");
 
@@ -71,11 +62,6 @@ if (togglePassword) {
   togglePassword.addEventListener("click", () => {
     const type = passwordInput.type === "password" ? "text" : "password";
     passwordInput.type = type;
-
-    // Change icon
     togglePassword.textContent = type === "password" ? "👁️" : "🙈";
   });
 }
-
-
-

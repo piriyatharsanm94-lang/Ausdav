@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Feedback</title>
   <link rel="icon" href="img/feedback.png">
-  <link rel="stylesheet" href="feedback.css"> <!-- CSS linked here -->
+  <link rel="stylesheet" href="css/feedback.css"> <!-- common CSS -->
   <style>
     button:disabled {
       background: #999;
@@ -18,7 +18,7 @@
     <!-- Header with Home button -->
     <div class="header-bar">
       <h2>Feedback</h2>
-      <a href="userinterface.html" class="home-btn">
+      <a href="dashboard.html" id="homeBtn" class="home-btn">
         <i data-lucide="home"></i> Home
       </a>
     </div>
@@ -30,52 +30,68 @@
     </form>
     <p id="response"></p>
   </div>
+    <script>
+    // ===== Determine batch from localStorage =====
+    const batchYear = Number(localStorage.getItem("batchYear")) || 2024;
+    const homeBtn = document.getElementById("homeBtn");
 
-  <script>
+    // ===== Dynamic Home button redirect based on batch =====
+    homeBtn.onclick = () => {
+        if (batchYear === 2012) {
+        window.location.href = "interface2012.html";
+        } else if (batchYear === 2022) {
+        window.location.href = "interface2022.html";
+        } else if (batchYear === 2024) {
+        window.location.href = "userinterface.html";
+        } else {
+        window.location.href = "userinterface.html"; // fallback
+        }
+    };
+
+    lucide.createIcons(); // initialize icons
+
+    // ===== Feedback submission =====
     const scriptURL = "https://script.google.com/macros/s/AKfycbzdh4mwesV1EFrKmOj5m6cGnfvBTTEmGrKz4vL9eY8BaJRv_M-vz5h1wKNg_C99gAVNBw/exec"; 
-
     const form = document.getElementById("feedbackForm");
     const messageField = document.getElementById("message");
     const responseText = document.getElementById("response");
     const submitBtn = document.getElementById("submitBtn");
 
     form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+        e.preventDefault();
 
-      // Disable button and show processing state
-      submitBtn.disabled = true;
-      submitBtn.innerText = "Processing...";
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Processing...";
 
-      try {
+        try {
         const msg = messageField.value.trim();
         if (!msg) {
-          responseText.innerText = "⚠️ Please enter feedback before sending.";
-          submitBtn.disabled = false;
-          submitBtn.innerText = "Send";
-          return;
+            responseText.innerText = "⚠️ Please enter feedback before sending.";
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Send";
+            return;
         }
 
         const res = await fetch(scriptURL, {
-          method: "POST",
-          body: new URLSearchParams({ "feedback": msg })
+            method: "POST",
+            body: new URLSearchParams({ "feedback": msg })
         });
 
         if (res.ok) {
-          responseText.innerText = "✅ Feedback sent successfully!";
-          messageField.value = ""; // clear form
+            responseText.innerText = "✅ Feedback sent successfully!";
+            messageField.value = "";
         } else {
-          responseText.innerText = "❌ Error sending feedback. Try again.";
+            responseText.innerText = "❌ Error sending feedback. Try again.";
         }
-      } catch (err) {
+        } catch (err) {
         responseText.innerText = "❌ Network error. Please try again.";
-      }
+        }
 
-      // Reset button state
-      submitBtn.disabled = false;
-      submitBtn.innerText = "Send";
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Send";
     });
+    </script>
 
-    lucide.createIcons(); // activate icons
-  </script>
+ 
 </body>
 </html>

@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AUSDAV</title>
-  <link rel="stylesheet" href="login.css">
+  <title>AUSDAV - Login</title>
+  <link rel="stylesheet" href="css/login.css">
   <link rel="icon" href="img/icon2.png">
 </head>
 <body>
   <div class="login-container">
     <div class="login-box">
-      <h2>Login</h2>
+      <h2>Welcome Back 👋</h2>
+      <p class="subtitle">Please login to continue</p>
+      
       <form id="loginForm">
         <input type="text" id="username" placeholder="Username" required>
 
@@ -21,13 +23,13 @@
         </div>
 
         <button type="submit">Login</button>
-        <a href="password.html" class="forgot-btn">Forgot Password?</a>
+        <a href="forgotpassword.html" class="forgot-btn">Forgot Password?</a>
       </form>
+
       <p id="loginStatus"></p>
     </div>
   </div>
-
-  <script src="logintem.js"></script>
+  <script src="js/login.js"></script>
   <script>
     // Show/Hide password toggle
     const passwordInput = document.getElementById("password");

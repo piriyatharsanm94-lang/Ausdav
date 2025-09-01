@@ -1,11 +1,14 @@
 const scriptURL = "https://script.google.com/macros/s/AKfycbxjkU1Urx0AQRXBkT66jB11n-gGUuGf7w-Ejz0XqQ5n_2oBi1kCb5thtxmNoiqeR3cR/exec";
+
 let userEmail = "";
 let otpTimer;
 
-// Step 1: Send OTP
+// ----- STEP 1: Send OTP -----
 document.getElementById("forgotForm").addEventListener("submit", e => {
   e.preventDefault();
-  userEmail = document.getElementById("email").value;
+  userEmail = document.getElementById("email").value.trim();
+
+  if (!userEmail) return;
 
   fetch(scriptURL, {
     method: "POST",
@@ -16,15 +19,10 @@ document.getElementById("forgotForm").addEventListener("submit", e => {
   })
   .then(res => res.text())
   .then(data => {
-    console.log("Server Response:", data); // 🔍 Debugging
-
     if (data.trim().toLowerCase() === "otp_sent") {
       document.getElementById("forgotStatus").innerText = "✅ OTP sent to your email.";
-
-      // Hide email form, show OTP form
       document.getElementById("forgotForm").style.display = "none";
       document.getElementById("otpForm").style.display = "block";
-
       startOtpCountdown();
     } else {
       document.getElementById("forgotStatus").innerText = "❌ Failed to send OTP. Try again.";
@@ -36,12 +34,13 @@ document.getElementById("forgotForm").addEventListener("submit", e => {
   });
 });
 
-// Step 2: Verify OTP
+// ----- STEP 2: Verify OTP -----
 document.getElementById("otpForm").addEventListener("submit", e => {
   e.preventDefault();
-  const otp = document.getElementById("otp").value;
+  const otp = document.getElementById("otp").value.trim();
+  const otpInput = document.getElementById("otp");
 
-  if (document.getElementById("otp").disabled) {
+  if (otpInput.disabled) {
     document.getElementById("forgotStatus").innerText = "❌ OTP expired. Request a new one.";
     return;
   }
@@ -56,13 +55,9 @@ document.getElementById("otpForm").addEventListener("submit", e => {
   })
   .then(res => res.text())
   .then(data => {
-    console.log("Server Response:", data); // 🔍 Debugging
-
     if (data.trim().toLowerCase() === "otp_valid") {
       clearInterval(otpTimer);
       document.getElementById("forgotStatus").innerText = "✅ OTP verified!";
-
-      // Hide OTP form, show Reset form
       document.getElementById("otpForm").style.display = "none";
       document.getElementById("resetForm").style.display = "block";
     } else {
@@ -75,22 +70,21 @@ document.getElementById("otpForm").addEventListener("submit", e => {
   });
 });
 
-// Step 3: Reset Password with validation
+// ----- STEP 3: Reset Password -----
 document.getElementById("resetForm").addEventListener("submit", e => {
   e.preventDefault();
-  const newPass = document.getElementById("newPassword").value;
-  const confirmPass = document.getElementById("confirmPassword").value;
+  const newPass = document.getElementById("newPassword").value.trim();
+  const confirmPass = document.getElementById("confirmPassword").value.trim();
 
   // Password validation rules
-  const passwordRules = [
+  const rules = [
     { regex: /.{6,}/, message: "Password must be at least 6 characters long." },
     { regex: /[A-Z]/, message: "Password must contain at least one uppercase letter." },
     { regex: /[0-9]/, message: "Password must contain at least one number." },
     { regex: /[!@#$%^&*(),.?":{}|<>]/, message: "Password must contain at least one symbol." }
   ];
 
-  // Check each rule
-  for (let rule of passwordRules) {
+  for (let rule of rules) {
     if (!rule.regex.test(newPass)) {
       document.getElementById("forgotStatus").innerText = `❌ ${rule.message}`;
       return;
@@ -102,7 +96,6 @@ document.getElementById("resetForm").addEventListener("submit", e => {
     return;
   }
 
-  // If validation passed, send to server
   fetch(scriptURL, {
     method: "POST",
     body: new URLSearchParams({
@@ -113,17 +106,10 @@ document.getElementById("resetForm").addEventListener("submit", e => {
   })
   .then(res => res.text())
   .then(data => {
-    console.log("Server Response:", data); // 🔍 Debugging
-
     if (data.trim().toLowerCase() === "password_updated") {
-      document.getElementById("forgotStatus").innerText = "✅ Password updated successfully!";
-
-      // Hide Reset + Back button
-      document.querySelector("#resetForm button[type=submit]").style.display = "none";
-      document.getElementById("backToOtp").style.display = "none";
-
-      // Show Login button
-      document.getElementById("goToLogin").style.display = "inline-block";
+      document.getElementById("forgotStatus").innerText = "";
+      document.getElementById("resetForm").style.display = "none";
+      document.getElementById("successBox").style.display = "block";
     } else {
       document.getElementById("forgotStatus").innerText = "❌ Failed to update password.";
     }
@@ -134,14 +120,14 @@ document.getElementById("resetForm").addEventListener("submit", e => {
   });
 });
 
-// 🔗 Login redirect button
+// ----- GO TO LOGIN BUTTON -----
 document.getElementById("goToLogin").addEventListener("click", () => {
-  window.location.href = "index.html"; // change if needed
+  window.location.href = "index.html";
 });
 
-// 🕒 OTP Countdown (40s)
+// ----- OTP TIMER -----
 function startOtpCountdown() {
-  let timeLeft = 5*60;
+  let timeLeft = 300; // 5 minutes
   const otpInput = document.getElementById("otp");
 
   otpInput.disabled = false;
@@ -156,12 +142,12 @@ function startOtpCountdown() {
       clearInterval(otpTimer);
       otpInput.disabled = true;
       document.getElementById("forgotStatus").innerText =
-        "❌ OTP expired. Please go back and request a new one.";
+        "❌ OTP expired. Please request a new one.";
     }
   }, 1000);
 }
 
-// 🔙 Back Buttons
+// ----- BACK BUTTONS -----
 document.getElementById("backToEmail").addEventListener("click", () => {
   clearInterval(otpTimer);
   document.getElementById("otpForm").style.display = "none";

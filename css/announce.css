@@ -40,6 +40,12 @@ tr:hover {
   cursor: pointer;
 }
 
+.announcement-link {
+  color: red;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 /* Modal */
 .modal {
   display: none;
@@ -97,43 +103,3 @@ tr:hover {
   transform: translateY(-2px);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
 }
-/* ===== Responsive Queries ===== */
-
-/* Tablet (up to 1024px) */
-@media (max-width: 1024px) {
-  body {
-    padding: 15px;
-  }
-  .card-container {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 15px;
-  }
-}
-
-/* Mobile (up to 768px) */
-@media (max-width: 768px) {
-  .card-container {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  }
-  .card-body {
-    padding: 15px;
-    font-size: 16px;
-  }
-}
-
-/* Small Phones (up to 480px) */
-@media (max-width: 480px) {
-  .card-container {
-    grid-template-columns: 1fr; /* 1 card per row */
-  }
-  .card-body {
-    padding: 12px;
-    font-size: 14px;
-  }
-  .card .tag {
-    font-size: 12px;
-    padding: 3px 8px;
-  }
-}
-
-
