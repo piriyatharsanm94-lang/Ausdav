@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📢 Announcements</title>
+  <link rel="icon" href="img/announce.png">
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #333;
+      text-decoration: none; /* No underline */
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f0f0f0;
+      font-weight: 600;
+    }
+
+    .announcement-link {
+      color: #007bff;
+      text-decoration: none; /* Remove underline */
+      cursor: pointer;
+    }
+
+    .announcement-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Iframe modal */
+    #modal {
+      display: none;
+      margin-top: 20px;
+    }
+
+    #bodyFrame {
+      width: 100%;
+      height: 400px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    #closeBtn {
+      display: block;
+      margin: 10px auto 0 auto;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    #closeBtn:hover {
+      background-color: #0056b3;
+    }
+
+    @media (max-width: 600px) {
+      #bodyFrame {
+        height: 300px;
+      }
+      th, td {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📢 Announcements</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:45%">Announcement</th>
+          <th>Sender</th>
+        </tr>
+      </thead>
+      <tbody id="announcements"></tbody>
+    </table>
+
+    <!-- Modal iframe -->
+    <div id="modal">
+      <iframe id="bodyFrame"></iframe>
+      <button id="closeBtn">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const sheetURL = "https://script.google.com/macros/s/AKfycbx6nATAR1y58Z6SPtpbzrO7TrxNHAsktCZnJncwNlEqEeJfozfeEIMr3UOldA8oGCAG/exec";
+
+    let viewedAnnouncements = JSON.parse(localStorage.getItem("viewedAnnouncements")) || [];
+
+    const modal = document.getElementById("modal");
+    const iframe = document.getElementById("bodyFrame");
+    const closeBtn = document.getElementById("closeBtn");
+
+    async function fetchAnnouncements() {
+      try {
+        const res = await fetch(sheetURL);
+        const data = await res.json();
+
+        let html = "";
+        data.forEach(row => {
+          const isViewed = viewedAnnouncements.includes(row.announcement);
+          const star = isViewed ? "" : "★";
+
+          let annText = row.announcement;
+          annText = `<span class="announcement-link">${annText}</span>`;
+
+          // Escape quotes
+          const bodyEscaped = row.body ? row.body.replace(/'/g, "\\'").replace(/\n/g, "\\n") : "";
+          const annEscaped = row.announcement ? row.announcement.replace(/'/g, "\\'") : "";
+
+          html += `<tr>
+                     <td><span class="announcement-link" onclick="openModal('${bodyEscaped}', '${annEscaped}')">${annText} ${star}</span></td>
+                     <td>${row.sender}</td>
+                   </tr>`;
+        });
+
+        document.getElementById("announcements").innerHTML = html || "<tr><td colspan='2'>No announcements yet.</td></tr>";
+
+      } catch (err) {
+        console.error("Error fetching announcements:", err);
+      }
+    }
+
+    function openModal(bodyMessage, announcement) {
+      iframe.srcdoc = bodyMessage;
+      modal.style.display = "block";
+
+      if (!viewedAnnouncements.includes(announcement)) {
+        viewedAnnouncements.push(announcement);
+        localStorage.setItem("viewedAnnouncements", JSON.stringify(viewedAnnouncements));
+      }
+    }
+
+    closeBtn.onclick = () => {
+      modal.style.display = "none";
+      iframe.srcdoc = "";
+    };
+
+    fetchAnnouncements();
+  </script>
+</body>
+</html>
+
+
+

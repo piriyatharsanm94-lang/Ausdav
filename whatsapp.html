@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Batch Chat</title>
+<style>
+  html, body {margin:0; padding:0; height:100%; font-family: Arial, sans-serif; background:#e6f2ff;}
+  body {display:flex; justify-content:center; align-items:center;}
+
+  /* Chat iframe container */
+  #chatFrame {
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:#fdfdfd;
+    border:none;
+    box-shadow:0 0 20px rgba(0,0,0,0.2);
+    display:flex;
+    flex-direction:column;
+    z-index:9999;
+  }
+
+  /* Header */
+  #chatHeader {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 20px;
+    background:#007bff;
+    color:#fff;
+    font-weight:bold;
+    font-size:16px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  #closeBtn {
+    cursor:pointer;
+    font-size:18px;
+    background:none;
+    border:none;
+    color:#fff;
+  }
+
+  /* Messages container */
+  #messages {
+    flex:1;
+    padding:15px;
+    overflow-y:auto;
+    background:#f0f4f8;
+  }
+
+  .message {
+    margin:8px 0;
+    display:flex;
+    flex-direction:column;
+    max-width:70%;
+    padding:10px 14px;
+    border-radius:12px;
+    word-wrap: break-word;
+  }
+
+  .message.self {align-self:flex-end; background:#DCF8C6;}
+  .message .username {font-weight:bold; font-size:12px; margin-bottom:3px;}
+  .message .message-time {font-size:10px; color:#666; text-align:right; margin-top:3px;}
+
+  /* Input area */
+  #msgForm {
+    display:flex;
+    gap:10px;
+    padding:10px 20px;
+    border-top:1px solid #ddd;
+    background:#fff;
+  }
+
+  #msgForm input[type="text"] {
+    flex:1;
+    padding:12px;
+    border-radius:6px;
+    border:1px solid #ccc;
+  }
+
+  #msgForm button {
+    padding:12px 20px;
+    border:none;
+    border-radius:6px;
+    background:#28a745;
+    color:#fff;
+    cursor:pointer;
+  }
+
+  #msgForm button:disabled {background:#ccc; cursor:not-allowed;}
+
+  @media (max-width:600px){
+    .message{max-width:80%;}
+  }
+</style>
+</head>
+<body>
+
+<!-- Full chat iframe-like container -->
+<div id="chatFrame">
+  <div id="chatHeader">
+    <span>Batch Chat</span>
+    <button id="closeBtn">&times;</button>
+  </div>
+
+  <div id="messages"></div>
+
+  <form id="msgForm">
+    <input type="text" id="msgInput" placeholder="Type your message...">
+    <button type="submit" id="sendBtn">Send</button>
+  </form>
+</div>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx5ELxWJlTUDCKVtNyGukCq9cyZ3XWUyBQL_PrPfOPcrSoso6incOEAaPdhU68q0uHC/exec";
+
+// Get login info from localStorage
+let batchName = localStorage.getItem("batchYear");
+let username = localStorage.getItem("username");
+
+const userColors = {};
+const colors = ["#EAEAEA","#FFDAB9","#FFE4E1","#E0FFFF","#FFFACD","#F5DEB3","#D8BFD8","#FAF0E6"];
+
+function getUserColor(name){
+  if(name === username) return "#DCF8C6"; // self
+  if(userColors[name]) return userColors[name];
+  const color = colors[Math.floor(Math.random()*colors.length)];
+  userColors[name] = color;
+  return color;
+}
+
+// Close button - go back to main.html
+document.getElementById("closeBtn").onclick = () => {
+  window.location.href = "main.html";
+};
+
+// Fetch messages
+async function fetchMessages(){
+  const res = await fetch(`${SCRIPT_URL}?batch=${batchName}`);
+  const data = await res.json();
+  const messagesDiv = document.getElementById("messages");
+  messagesDiv.innerHTML = "";
+
+  data.forEach(msg=>{
+    const div = document.createElement("div");
+    div.className="message"+(msg.username===username?" self":"");
+    div.style.backgroundColor = getUserColor(msg.username);
+
+    const userDiv = document.createElement("div");
+    userDiv.className="username";
+    userDiv.innerText=msg.username;
+
+    const contentDiv=document.createElement("div");
+    contentDiv.innerText=msg.message;
+
+    const timeSpan=document.createElement("div");
+    timeSpan.className="message-time";
+    const d=new Date(msg.timestamp);
+    timeSpan.innerText=d.toLocaleString();
+
+    div.appendChild(userDiv);
+    div.appendChild(contentDiv);
+    div.appendChild(timeSpan);
+    messagesDiv.appendChild(div);
+  });
+
+  messagesDiv.scrollTop=messagesDiv.scrollHeight;
+}
+
+// Send message
+document.getElementById("msgForm").onsubmit = async (e)=>{
+  e.preventDefault();
+  const input=document.getElementById("msgInput");
+  const sendBtn=document.getElementById("sendBtn");
+  sendBtn.disabled=true;
+  sendBtn.innerText="Sending...";
+
+  let messageText=input.value.trim();
+  if(!messageText){sendBtn.disabled=false; sendBtn.innerText="Send"; return;}
+
+  await fetch(SCRIPT_URL,{
+    method:"POST",
+    body:JSON.stringify({username,batch:batchName,message:messageText}),
+  });
+  input.value="";
+  sendBtn.disabled=false;
+  sendBtn.innerText="Send";
+};
+
+// Auto-refresh messages
+fetchMessages();
+setInterval(fetchMessages,3000);
+</script>
+
+</body>
+</html>
+
+
+
+
+
+

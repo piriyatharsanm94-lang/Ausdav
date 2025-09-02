@@ -38,7 +38,7 @@ loginForm.addEventListener("submit", async (e) => {
 
       // Redirect
       setTimeout(() => {
-        window.location.href = "dashboard.html";
+        window.location.href = "main.html";
       }, 1200);
 
     } else {

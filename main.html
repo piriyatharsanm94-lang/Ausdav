@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Batch Portal</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/announce.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="icon" href="img/icon2.png">
+
+  <!-- FontAwesome -->
+  <script src="https://kit.fontawesome.com/yourfontawesomeid.js" crossorigin="anonymous"></script>
+
+  <style>
+    /* Ensure iframe fills section */
+    #announceSection iframe {
+      width: 100%;
+      height: 80vh;
+      border: none;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="img/icon2.png" alt="Logo">
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="#" id="dashboardLink" class="active">Dashboard</a></li>
+      <li><a href="#" id="announceLink">Announcements</a></li>
+    </ul>
+
+    <!-- Notification -->
+    <div class="notification" id="notifBtn">
+      <i class="fas fa-bell"></i>
+      <span class="badge" id="notifBadge"></span>
+    </div>
+
+    <!-- Logout -->
+    <a href="index.html" class="logout-btn">Logout</a>
+  </nav>
+
+  <!-- Sections -->
+  <div id="content">
+
+    <!-- Dashboard -->
+    <div id="dashboardSection" class="section active">
+      <h1 id="dashboardTitle">Dashboard</h1>
+      <div class="card-container">
+        <div class="cards" id="cardWrapper"></div>
+      </div>
+    </div>
+
+    <!-- Announcements -->
+    <div id="announceSection" class="section">
+      <h2>📢 Announcements</h2>
+      <!-- Iframe loads the full announcements page -->
+      <iframe id="announcementFrame" src="ann.html"></iframe>
+    </div>
+  </div>
+
+  <!-- Notification Popup -->
+  <div id="notifPopup" class="notif-popup">
+    <h3>New Announcements</h3>
+    <ul id="notifList"></ul>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/dashboard.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

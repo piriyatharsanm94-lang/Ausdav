@@ -13,14 +13,16 @@ const dashboards = {
     { tag: "Announcement for Members", body: "➕ Tap to give announcement for members", color: "red", link: "Announcement_Given.html", admin: true },
     { tag: "Unfinished Accounts", body: "Tap to view the unfinished accounts", color: "orange", link: "https://docs.google.com/spreadsheets/d/12-AhAxG8zFll96kuF9QRJzIeLgt1u2Qb68JrYiTGHD0/edit?usp=sharing", admin: true },
     { tag: "Feedbacks", body: "Tap to view the feedback from members", color: "blue", link: "https://docs.google.com/spreadsheets/d/1kECmlENwamN0d_BYYyUgwLAWwsEPUKILyV39psxyX1Q/edit?usp=sharing", admin: true },
-    { tag: "Update Project Accounts", body: "Tap to update the account details for our batch", color: "green", link: "Update_pro.html", admin: true }
+    { tag: "Update Project Accounts", body: "Tap to update the account details for our batch", color: "green", link: "Update_pro.html", admin: true },
+    { tag: "Chat", body: "Join your batch group chat", color: "blue", link: "whatsapp.html", highlight: true } // Chat card highlighted
   ],
 
   2024: [
     { tag: "For Accounts Team Members", body: "Tap to upload the finished accounts details", color: "blue", link: "upload_Acc.html", type: "accounts" },
     { tag: "For Documentary Team Members", body: "Tap to upload finished documents and permission letters", color: "blue", link: "upload_Doc.html", type: "documentary" },
     { tag: "Give Feedback", body: "Tap to give feedback (must be kept private)", color: "green", link: "feedback.html" },
-    { tag: "For Project Coordinators", body: "Tap to note the temporary accounts (project ongoing)", color: "orange", link: "Unfinised_Acc.html" }
+    { tag: "For Project Coordinators", body: "Tap to note the temporary accounts (project ongoing)", color: "orange", link: "Unfinised_Acc.html" },
+    { tag: "Chat", body: "Join your batch group chat", color: "blue", link: "whatsapp.html", highlight: true } // Chat card highlighted
   ]
 };
 
@@ -45,6 +47,12 @@ function renderDashboard(year) {
 
     const div = document.createElement("div");
     div.className = `card`;
+
+    // Highlight Chat card visually
+    if (card.highlight) {
+      div.style.border = "3px solid purple";
+      div.style.boxShadow = "0 4px 12px rgba(128,0,128,0.3)";
+    }
 
     // Pass type to upload page if exists
     if (card.type) {

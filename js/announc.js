@@ -70,3 +70,10 @@ window.onclick = function (event) {
 // Initial fetch + refresh every 5 seconds
 fetchAnnouncements();
 setInterval(fetchAnnouncements, 5000);
+
+
+
+
+
+
+
